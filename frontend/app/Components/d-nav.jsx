@@ -11,7 +11,7 @@ function Nav() {
     setToggle((current) => !current);
   }
   const { links1, links2, links3 } = navData;
-  console.log(links1);
+
   return (
     <>
       {/* OPEN CLOSE MENU */}

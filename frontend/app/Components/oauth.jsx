@@ -3,7 +3,7 @@ import Link from "next/link";
 
 
 function AuthWithGoogle({link = "dashboard", color = "blue"}) {
-  // console.log("AUTH: " + link)
+  
   return (
     <div className="flex flex-col mt-3 gap-8 w-full">
       <Link href={link} className="text-left  self-start just">

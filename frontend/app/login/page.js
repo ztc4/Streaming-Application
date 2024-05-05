@@ -7,7 +7,7 @@ import form1Data from "@/app/data/login.json";
 import { useState } from "react";
 
 function Login() {
-  console.log(form1Data);
+ ;
   Cookies.set("animal", "cat");
   const [form, setForm] = useState({
     email:"",
