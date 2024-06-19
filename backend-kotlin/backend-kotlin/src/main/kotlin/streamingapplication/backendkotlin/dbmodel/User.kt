@@ -18,3 +18,4 @@ data class User(
 } // Constructor like this due to errors fetching the data
 
 
++
