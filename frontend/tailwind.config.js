@@ -32,7 +32,8 @@ module.exports = {
         "poppin-extrabold":"poppin-extrabold"
       },
       screens:{
-        'sm2': {'max': '639px'}
+        'sm2': {'max': '639px'},
+        '3xl': {'min':'1800px'}
       }
     },
   },

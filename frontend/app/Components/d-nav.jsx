@@ -26,6 +26,7 @@ function Nav() {
           height={20}
           width={20}
           className="size-10"
+          
           alt=""
           src="/icons/dashboard/menu.svg"
         />

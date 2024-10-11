@@ -77,7 +77,7 @@ function Signup() {
                   form?.firstname?.substring(1) +
                   " " +
                   form?.lastname[0]?.toUpperCase() +
-                  form?.lastname?.substring(1)}
+                  form?.lastname?.substring(1) || "Name is needed!"}
               </p>
             </div>
             <div
@@ -85,27 +85,27 @@ function Signup() {
               className="col-span-3 cursor-pointer"
             >
               <label className="text-[#606060]">Username</label>
-              <p className="text-black ">{form.username?.toLowerCase()}</p>
+              <p className="text-black ">{form.username?.toLowerCase() || "Username is needed!"}</p>
             </div>
             <div
               onClick={() => changePage(1)}
               className="col-span-6 cursor-pointer"
             >
               <label className="text-[#606060]">Email</label>
-              <p className="text-black ">{form.email?.toLowerCase()}</p>
+              <p className="text-black ">{form.number?.toLowerCase() || "Email is Needed!"}</p>
             </div>
             <div
               onClick={() => changePage(2)}
               className="col-span-6 cursor-pointer"
             >
               <label className="text-[#606060]">Number</label>
-              <p className="text-black ">{form.password?.toLowerCase()}</p>
+              <p className="text-black ">{form.password?.toLowerCase() || "Number is Needed!"}</p>
             </div>
             <div className="col-span-6 flex justify-between">
               <div className="cursor-pointer" onClick={() => changePage(2)}>
                 <label className="text-[#606060]">Password</label>
                 <p className="text-black ">
-                  {showPassword ? form.password?.toLowerCase() : ""}
+                  {showPassword ? form.password?.toLowerCase() : `***********`}
                 </p>
               </div>
               <button
