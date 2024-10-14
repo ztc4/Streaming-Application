@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Card from "@/app/Components/card";
 import { useState } from "react";
-import Nav from "../Components/d-nav";
+import Nav from "../Components/dashboardNav";
 import toggleSearch from "@/app/Components/d-toggleSearch";
 
 function Content() {

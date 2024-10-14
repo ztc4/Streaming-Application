@@ -88,3 +88,16 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #555; /* Color of the handle on hover */
 }
+
+
+#signUpNow{
+  height: 400px;
+  min-width: 300px;
+  background: repeating-linear-gradient(
+  -55deg,
+  #222,
+  #222 10px,
+  #333 10px,
+  #333 20px
+);
+}

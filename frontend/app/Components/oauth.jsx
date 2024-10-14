@@ -10,16 +10,17 @@ function AuthWithGoogle({link = "dashboard", color = "blue"}) {
         Don&apos;t have an account?<span className={`${color == "blue" ? "text-blue" :"text-yellow"}`}> { link == "login" ? "Login" : "Sign up"}</span>
       </Link>
       <p className={`${color == "blue" ? "text-blue" :"text-black"} font-poppin-medium self-center `}>- OR -</p>
-      <button className="!font-poppin-medium text-sm py-2 flex w-fit  px-4 gap-2 self-center rounded-2xl border-2 border-[#7C838A]">
+      <button className="!font-poppin-medium text-lg duration-700 hover:bg-blue hover:text-white py-2 flex w-fit  px-4 gap-2 self-center rounded-2xl border-2 border-[#7C838A]">
         <Image
-          height={20}
-          width={20}
+          height={25}
+          width={25}
           alt=""
           src="/icons/Google.svg"
-          className=" "
+          className=" object-fill "
         />
         <p>Log in with Google</p>
       </button>
+      
     </div>
   );
 }

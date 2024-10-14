@@ -1,6 +1,6 @@
 
 
-import Nav from '@/app/Components/d-nav';
+import Nav from '@/app/Components/dashboardNav';
 import "../globals.css"
 
 export const metadata = {

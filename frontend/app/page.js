@@ -3,10 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import VisionCard from "@/app/Components//vision-card";
 import VisionMore from "./Components/l-vision-more";
+import EmpowerItem from "./Components/empowerItem";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-white overflow-x-hidden items-center justify-between">
+    <main className="flex min-h-screen flex-col bg-white dark:bg-dark-background overflow-x-hidden  items-center justify-between">
       <section className="min-h-fit w-screen px-10 relative">
         <header className="flex z-30 text-xl  flex-row relative justify-between font-poppin-bold h-36 items-center">
           <Image
@@ -34,12 +35,12 @@ export default function Home() {
         </header>
 
         {/* INFO */}
-        <div className="z-20 md:ml-24 2xl:ml-96 2xl:mt-40   h-full relative opacity-100 w-full max-w-[1200px] my-auto">
-          <h1 className="font-poppin-bold text-black text-5xl 2xl:text-7xl 3xl:text-[110px] ">
+        <div className="z-20 md:ml-24 2xl:ml-96 2xl:mt-40 text-white    h-full relative opacity-100 w-full max-w-[1200px] my-auto">
+          <h1 className="font-poppin-bold text-black dark:text-white text-5xl 2xl:text-7xl 3xl:text-[110px] ">
             Click <br /> Watch, Chat: <br />
             Dive into the Conversation
           </h1>
-          <p className="text-[16px] mt-4 2xl:mt-12  font-poppin-medium 2xl:text-2xl text-black">
+          <p className="text-[16px] mt-4 2xl:mt-12 dark:text-white  font-poppin-medium 2xl:text-2xl text-black">
             Discover, discuss, and learn on our interactive platform. Click to
             explore captivating content, watch engaging videos, and chat with
             fellow enthusiasts. Join the conversation and broaden your knowledge
@@ -60,8 +61,8 @@ export default function Home() {
             or explore
           </p>
 
-          <div className="flex flex-col justify-center items-center mt-1 gap-2">
-            <div className="flex flex-col 2xl:[&>*]:p-10 [&>*]:text-[18px] 2xl:[&>*]:text-2xl  2xl:[&>*]:h-24 [&>*:hover]:bg-slate-200 [&>*:hover]:text-blue [&>*]:duration-1000 md:flex-row gap-2">
+          <div className="flex flex-col justify-center  items-center my-4 gap-2">
+            <div className="flex flex-col dark:[&>*]:text-black dark:[&>*]:bg-white 2xl:[&>*]:p-10 [&>*]:text-[18px] 2xl:[&>*]:text-2xl  2xl:[&>*]:h-24 text-black [&>*:hover]:bg-slate-200 [&>*:hover]:text-blue [&>*]:duration-1000 md:flex-row gap-2">
               <button className="flex  bg-white flex-row justify-center items-center px-5 py-2 rounded-3xl gap-1">
                 <Image
                   className=""
@@ -93,7 +94,7 @@ export default function Home() {
                 />
               </button>
             </div>
-            <button className="flex bg-white flex-row justify-center items-center [&>*]:text-[18px] 2xl:[&>*]:text-2xl 2xl:h-24 hover:bg-slate-200  px-5 w-fit h-fit py-2 duration-1000 rounded-3xl gap-1">
+            <button className="flex bg-white text-black dark:bg-white dark:text-black flex-row justify-center items-center [&>*]:text-[18px] 2xl:[&>*]:text-2xl 2xl:h-24 hover:bg-slate-200  px-5 w-fit h-fit py-2 duration-1000 rounded-3xl gap-1">
               <Image
                 className=""
                 height={25}
@@ -118,11 +119,11 @@ export default function Home() {
           <div className="absolute bottom-10 right-28 bg-[#3E4FEC] size-[35rem] rounded-full blur-[170px] bg-opacity-80 z-10"></div>
         </div>
       </section>
-      <section className="min-h-screen bg-white w-screen relative flex flex-col justify-evenly overflow-hidden">
-        <h2 className="text-center  font-poppin-bold my-8 text-4xl 2xl:text-7xl">
+      <section className="min-h-screen mt-20 dark:text-white bg-white dark:bg-dark-background w-screen relative flex flex-col justify-evenly overflow-hidden">
+        <h2 className="text-center   font-poppin-bold my-8 text-4xl 2xl:text-7xl">
           Our Vision
         </h2>
-        <div className="grid md:grid-cols-3 gap-12 py-4 px-4 md:px-24 justify-center">
+        <div className="grid md:grid-cols-3 flex-shrink-0 gap-12 py-4 px-4 md:px-24 justify-center">
           <VisionCard
             color={1}
             icon="cloud"
@@ -143,14 +144,14 @@ export default function Home() {
           />
         </div>
         <footer className="min-h-[220px] w-full mt-8 py-4 px-24 flex-col md:flex-row flex items-center bg-[#D9D9D9] bg-opacity-20 ">
-          <div className="w-screen px-8 md:px-0 md:w-3/4 flex flex-row  ">
+          <div className="w-screen px-8 md:px-0 md:w-3/4 flex flex-row gap-6  ">
             <VisionMore enable={true} />
             <VisionMore />
             <VisionMore />
           </div>
 
           <Link className="w-screen md:w-1/4 px-8 mt-4" href="/login" passHref>
-            <button className="px-8 py-2 z-30 rounded-md justify-center items-center flex flex-row bg-blue tracking-wide hover:bg-black duration-1000 text-white bg-blue-500">
+            <button className="px-8 py-2 z-30 h-16 ml-auto rounded-md justify-center items-center flex flex-row bg-blue tracking-wide hover:bg-black duration-1000 text-white bg-blue-500">
               <p>Learn More About</p>
               <Image
                 className="ml-4 text-white"
@@ -162,39 +163,56 @@ export default function Home() {
           </Link>
         </footer>
       </section>
-      <section className="h-screen bg-white w-screen relative flex flex-col justify-evenly overflow-hidden">
-        <div className="px-24 flex flex-col">
+      <section className="min-h-screen md:h-screen py-8 dark:bg-dark-background dark:text-white bg-white w-screen relative flex flex-col justify-evenly overflow-hidden">
+        <div className=" px-4 md:px-24 flex flex-col">
           <h2 className="font-poppin-bold text-4xl 2xl:text-6xl text-center">
             Empower Your Voice, Build a Community
           </h2>
-          <p className="text-center mt-4 text-[#161C2D] text-lg font-poppin-medium">
+          <p className="text-center mt-4 text-[#161C2D] dark:text-white text-opacity-70  text-sm md:text-lg 2xl:text-2xl font-poppin-medium">
             With the ability to upload and view videos, you can easily take
             advantages of <br/> our features to have live discussion with others in
             the community
           </p>
         </div>
 
-        <div className="flex flex-row relative h-3/5 px-36">
-          <div id="image" className="w-1/2 h-full bg-red-600 relative">
-            <Image alt="Empower Placeholder Image" height={484} width={357} src="/images/landing-empower.jpg" className="bg-orange h-5/6 w-10/12 mr-auto mt-auto relative z-10"/>
-            <div className="bg-yellow h-5/6 w-10/12 ml-auto absolute top-20 right-10 z-0">
+        <div className="flex flex-col md:flex-row relative mt-4 h-3/5 px-10 md:px-6">
+          <div id="image" className="w-full md:w-1/2 min-h-[400px]  relative">
+            <Image alt="Empower Placeholder Image" height={484} width={357} src="/images/landing-empower.jpg" className=" h-full 2xl:h-5/6 w-full md:w-8/12 rounded-3xl right-5 md:right-10 absolute z-10"/>
+            <div className="bg-orange h-full 2xl:h-5/6 rounded-3xl w-full md:w-8/12 mr-auto absolute top-10 right-0 z-0">
             </div>
           </div>
 
-          <div id="list" className="1/2">
-            <div  className="flex gap-8 pl-4 flex-row">
-              <div className="bg-orange  size-10 rounded-full h-10 flex justify-center items-center text-white">
-                <p>1</p>
-              </div>
-              <div clas>
-                <p className="h-10 text-2xl font-poppin-semibold">Create Your Account</p>
-                <p className="font-poppin-medium text-[#161C2D]">
-                  Unlock the Power to Support Fellow Users: Create Your Account
-                  Today.
-                </p>
-              </div>
-            </div>
+          <div id="list" className=" flex flex-col gap-4 min-h-fit">
+            <EmpowerItem/>
+            <EmpowerItem number={2} header="Contribute Your Ideas" paragraph="Take the Leap: Share Your First Video and 
+            Seek Guidance from Our Community."/>
+            <EmpowerItem  number={3} header="Share Your Video" paragraph="Maximize Your Video's Reach with Our Feature-Rich Platform."/>
+            
           </div>
+        </div>
+      </section>
+      <section className=" md:px-24 md:py-20 w-full min-h-fit">
+        <div id="signUpNow" className=" w-full h-[362px] text-white px-40 justify-between flex flex-col md:flex-row py-20 rounded-3xl shadow-2xl">
+          <div className="flex flex-col justify-center">
+            <p className="font-poppin-semibold text-4xl">Sign Up Now!</p>
+            <ul className="mt-6 flex flex-row flex-wrap gap-4 [&>*]:ml-8  text-[24px] list-disc tracking-wide  font-poppin-medium">
+              <li>Communicating with like minded individuals </li>
+              <li>Start posting videos that benefit everyone</li>
+              <li>Access your information from anywhere</li>
+              <li>Get help from other users</li>
+            </ul>
+          </div>
+          <button className="bg-blue h-12 min-w-fit hover:bg-black duration-700 hover:border-white hover:border-2 shadow-lg rounded-xl p-10 px-20 flex flex-row justify-center my-auto items-center font-poppin-semibold text-2xl">
+            <p>Sign up Now</p>
+            <Image
+                  className=" text-white ml-4 size-12"
+                  height={25}
+                  width={25}
+                  src="/icons/landing/arrowRight.svg"
+                />
+
+          </button>
+
         </div>
       </section>
     </main>
