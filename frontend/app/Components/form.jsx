@@ -6,7 +6,7 @@ function Form({ children, data, handleClick, handleChange,form,color ="blue" }) 
  
   return (
     <>
-      <h1 className="font-poppin-medium sm2:mb-2  mb-8 text-4xl text-center ">
+      <h1 className="font-poppin-medium sm2:mb-2 mt-32    mb-8 text-4xl text-center ">
         {title}
       </h1>
 

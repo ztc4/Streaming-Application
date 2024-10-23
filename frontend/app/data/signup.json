@@ -4,13 +4,13 @@
         "input":[
             {
                "placeholder": "Enter First",
-               "field":"firstname",
+               "field":"firstName",
                "label":"Full Name",
                "span":3
             },
             {
                 "placeholder": "Enter Last",
-                "field":"lastname",
+                "field":"lastName",
                 "label":" _ ",
                 "span":3
              },
@@ -35,7 +35,7 @@
             },
             {
                 "placeholder": "Enter Number",
-                "field":"number",
+                "field":"phoneNumber",
                 "label":"Mobile Number",
                 "span":3
             },

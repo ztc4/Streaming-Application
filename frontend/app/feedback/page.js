@@ -27,7 +27,7 @@ function Feedback() {
 
     return (
         <main id="FEEDBACK" className="flex min-h-screen w-full flex-col md:py-40 px-6 md:px-40 bg-white dark:bg-dark-background overflow-x-hidden  items-start justify-start">
-            <h1 className="font-poppin-semibold text-5xl">Give Us Advice</h1>
+            <h1 className="font-poppin-semibold mt-32 md:mt-0  text-5xl">Give Us Advice</h1>
             <form className=" w-full md:w-8/12">
                 <div className="mb-6 w-full mt-12">
                     <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Enter Email</label>

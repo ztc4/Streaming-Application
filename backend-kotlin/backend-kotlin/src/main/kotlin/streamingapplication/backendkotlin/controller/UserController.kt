@@ -26,3 +26,32 @@ class UserController (val service: UserService){
 
 
 }
+
+@RestController
+@RequestMapping("/api/v1/user")
+class UserController(
+    val userService:UserService;
+) {
+
+    @PostMapping("/createAccount")
+    fun createAccount(@Valid @RequestBody createAccountDTO:CreateAccountDTO):ResponseEntity<Any>
+
+    {
+        return try {
+            // Attempt to create the account
+            val createdAccount = userService.createAccount(createAccountDTO)
+            ResponseEntity.ok(createdAccount)
+
+        } catch (e: Exception) {
+            when (e) {
+                is DataIntegrityViolationException -> {
+                    // Handle unique constraint violations
+                    ResponseEntity.badRequest().body("Username or email already exists")
+                }
+                else -> {
+                    // Handle other errors
+                    ResponseEntity.internalServerError().body("An error occurred while creating the account")
+                }
+            }
+        }
+    }

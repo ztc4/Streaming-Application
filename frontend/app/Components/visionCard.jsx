@@ -10,7 +10,7 @@ function VisionCard({text,header,color = 1,icon}) {
            className=""
            src={`/icons/landing/${icon}.svg`}
            alt="Logo"/>
-           <h3 className="font-poppin-semibold text-2xl">{header}</h3>
+           <h3 className="font-poppin-semibold text-2xl text-center">{header}</h3>
            <p className="font-poppin-italic text-base text-center">{text}</p>
         </div>
 

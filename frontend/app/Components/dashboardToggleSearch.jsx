@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-function toggleSearch({ searchActive, handleActive }) {
+function ToggleSearch({ searchActive, handleActive }) {
   return (
     <header
     className="stickyborder-b-2 border-opacity-10 border-b-black
@@ -70,4 +70,4 @@ function toggleSearch({ searchActive, handleActive }) {
   </header>
   );
 }
-export default toggleSearch;
+export default ToggleSearch;

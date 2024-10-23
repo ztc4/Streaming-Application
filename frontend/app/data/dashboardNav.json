@@ -24,7 +24,7 @@
             "link": "prompts",
             "text": "Your Account",
             "svg": "Account",
-            "visibility": "toggle"
+            "visibility": "toggle" 
           },
           {
             "link": "prompts",
