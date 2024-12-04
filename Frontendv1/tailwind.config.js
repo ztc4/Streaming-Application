@@ -19,6 +19,7 @@ module.exports = {
         "dark-background":"#091227", 
         "input-background":"#B0BAC3", // %40 opacity
         "orange":"#FF5733",
+        "light-blue":"#B9C1DC"
       
       },
       fontFamily:{

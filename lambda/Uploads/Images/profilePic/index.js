@@ -7,7 +7,7 @@ const s3Client = new S3Client({ region: process.env.AWS_REGION });
 export.handler = async(event) => {
     const bucketName = process.env.AWS_BUCKET_NAME;
     const expiresIn = 300;
-    const fileName = `Profile/${event.id || "hello"}`;
+    const fileName = `Profile/${ id||event.id }`;
 
     const command = new PutObjectCommand({
         Bucket: bucketName,
@@ -29,12 +29,3 @@ export.handler = async(event) => {
     }
 
 }
-
-// const testEvent = { id: "1" };
-// handler(testEvent)
-//     .then(res => {
-//         console.log('Response:', res); // Log the response
-//     })
-//     .catch(err => {
-//         console.error('Error:', err); // Log any error that occurs
-//     });

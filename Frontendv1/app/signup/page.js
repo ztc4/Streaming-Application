@@ -91,6 +91,7 @@ function Signup() {
           handleChange={handleChange}
         />
       )}
+      
       {page === 3 && (
         <div className="w-full">
           <h1 className="font-poppin-medium sm2:mb-2 mb-8 text-4xl text-left ">

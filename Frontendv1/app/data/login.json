@@ -6,9 +6,11 @@
            "field":"email",
            "label":"Email",
            "span":6
+           
         },
         {
             "placeholder": "Enter your password",
+            "type":"password",
             "field":"password",
             "label":"Password",
             "span":6

@@ -17,6 +17,7 @@ function Form({ children, data, handleClick, handleChange,form,color ="blue" }) 
             placeholder={_.placeholder}
             field={_.field}
             label={_.label}
+            type={_.type || "text"}
             span={_.span}
             value={form[_.field]}
             handleChange={handleChange}

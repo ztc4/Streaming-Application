@@ -1,5 +1,5 @@
 {
-  "name": "videos",
+  "name": "convertimage",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "jsonwebtoken": "^9.0.2"
+    "sharp": "^0.33.5"
   }
 }

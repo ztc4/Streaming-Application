@@ -1,10 +1,33 @@
 "use client";
 import Card from "@/app/Components/card";
- import Link from "next/link";
-  import { useState } from "react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 function YourAccount() {
-  const [selectedOption, setSelectedOption] = useState("recent");
+  const [video, setVideo] = useState([])
+  const [playlist,setPlaylist] = useState([])
+  const [showingVideos, setChangeShowing] = useState(true)
+  const [selectedOption, setSelectedOption] = useState("createdAt");
+  let headers = (token) => ({ headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+  const token = Cookies.get("token");
+
+  useEffect(()=>{
+
+  if(showingVideos){
+    let data =  axios.get(`http://localhost:8080/api/v1/search/videos/me?sortBy=${selectedOption}&order=descending`, headers(token)).then( res => setVideo(res.data))
+    console.log(data)
+  }
+  else{
+    // get playlist
+  }
+
+ 
+  
+  },[selectedOption])
+  
+
   return (
     <main className="w-screen md:pl-56 min-h-screen pt-12 md:pt-40 bg-[#F8F8F8]">
       <div className=" w-full md:max-w-[1200px] flex-col justify-center items-center mx-auto">
@@ -32,20 +55,22 @@ function YourAccount() {
           </div>
         </div>
         <div className="flex flex-row px-2 mt-12 border-b-4 border-t-0 justify-between">
-          <div className="flex flex-row gap-3"><h6>Videos</h6><h6>Playlist</h6></div>
-          <div className="flex flex-row items-center gap-4">
+          <div className="flex flex-row gap-3">
+            <button onClick={ ()=>setChangeShowing(true)} className={`font-poppin-semibold text-xl + ${showingVideos ? "text-blue " :""} `}>Videos</button>
+            <button onClick={()=>setChangeShowing(false) } className={`font-poppin-semibold text-xl + ${!showingVideos ? "text-blue " :""} `}>Playlist</button></div>
+          {!showingVideos || <div className="flex flex-row items-center gap-4">
             <p>Sort:</p>
-            {["recent", "lines", "views"].map(current => (
+            {["createdAt","likes", "views"].map(current => (
               <div className="flex items-center gap-2" key={current}>
                 <input type="radio" id={current} name="sort" value={current} checked={selectedOption === current} onChange={() => setSelectedOption(current)} className="hidden peer" />
                 <div className={`size-3 border-2 ${selectedOption === current ? "bg-blue border-blue-500" : "border-black bg-gray-100"} cursor-pointer`} onClick={() => setSelectedOption(current)}></div>
                 <label htmlFor={current} className="cursor-pointer capitalize">{current}</label>
               </div>
             ))}
-          </div>
+          </div>}
         </div>
-        <div className="flex flex-wrap justify-center items-center  mt-4 flex-row gap-4">
-          {Array(18).fill().map((_, i) => <Card key={i} />)}
+        <div className="flex flex-wrap justify-start items-center  mt-4 flex-row gap-4">
+          { showingVideos ? video?.content?.map((_, i) => <Card key={i} video={_} />) : playlist?.content?.map((_, i) => <Card key={i} video={_} />)}
         </div>
       </div>
     </main>

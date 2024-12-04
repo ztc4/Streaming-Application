@@ -10,6 +10,13 @@ function CreateVideo() {
     const [selectedCategory, setSelectedCategory] = useState("");
     const [image, setImage] = useState(null);
     const [video, setVideo] = useState(null);
+    const [isUploading, setIsUploading] = useState(false)
+    const [uploadTracking, setUploadTracking] = useState({
+        thumbnail:0,
+        video:0,
+       
+    })
+    
 
     const handleVideoChange = (event) => {
         setVideo(event.target.files[0]);
@@ -24,34 +31,61 @@ function CreateVideo() {
     };
 
     const handleSubmit = async (e) => {
-        // e.preventDefault(); // Prevent default form submission
+        e.preventDefault(); 
         const URL = "http://localhost:8080/api/v1";
-        let categories = ["programming","gaming","information"]
-        let categoryOfNumber = categories.indexOf(selectedCategory) + 1 || null
-        const token = Cookies.get("token");
-        console.log(token)
-        if (!token) {
-            alert("You currently aren't logged In!");
-            return; // Exit if there's no token
-        }
-        let response;
+        const lambdaUrlVideo = "https://76hnm62hnbq2kipmtnuaxdf6ki0qdorc.lambda-url.us-east-1.on.aws/"
+        const lambdaUrlImage = "https://kixue64ylotghb7nqivjxexp5u0ocekz.lambda-url.us-east-1.on.aws/"
+        let headers = (token) => ({ headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' } });
+        let res;
+        let presignedUrl = {video:null, thumbnail:null};
 
         try{
-            response = await axios.post(
+            // Decide Category Number & Token
+            const categories = ["programming","gaming","information"]
+            const categoryOfNumber = categories.indexOf(selectedCategory) + 1 || null
+            const token = Cookies.get("token");
+            console.log(token)
+            if (!token) return alert("You currently aren't logged In!");
+
+            res = await axios.post(
                 URL + "/video/createVideo",
-                {
-                    "title": title,
-                    "description": desc,
-                    "category": categoryOfNumber
-                },
-                {
-                    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' } // Ensure the token is prefixed correctly
-                }
+                {"title": title,"description": desc,"category": categoryOfNumber,"videoContentType": video?.type,"imageContentType": image?.type },
+                headers(token)
             );
-            console.log(response)
+            setIsUploading(true)
+            // Create Presigned URL
+            const [videoRes, imageRes] = await Promise.all([
+                axios.get(lambdaUrlVideo, headers(res.data.videoJWT)),
+                axios.get(lambdaUrlImage, headers(res.data.imageJWT))
+            ]);
+            presignedUrl.video = videoRes.data.video;
+            presignedUrl.thumbnail = imageRes.data.thumbnail;
+
+            const uploadFileWithProgress = async (url, file, fileName) => {
+                await axios.put(url, file, {
+                    headers: { 'Content-Type': file.type },
+                    onUploadProgress: (progressEvent) => {
+                        const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+                        console.log(`${fileName} Upload Progress: ${progress}%`);
+                        // Update progress bar UI if present
+                        setUploadTracking( current => ({
+                            ...current, 
+                            [fileName]: progress
+                        }))
+                    },
+                });
+            };
+    
+            await Promise.all([
+                uploadFileWithProgress(presignedUrl.video, video, "video"),
+                uploadFileWithProgress(presignedUrl.thumbnail, image, "thumbnail"),
+            ]);
+
+            setIsUploading("Successful")
+            console.log("Video and Thumbnail successfully uploaded to S3.");
         }
         catch(error){
-            
+                setIsUploading(false)
                 if (error.response) {
                     // The request was made, and the server responded with a status code
                     console.error("Response data:", error.response.data);
@@ -63,28 +97,11 @@ function CreateVideo() {
                     console.error("Error message:", error.message);
                 }
         }
-    const lambdaUrl = 'https://76hnm62hnbq2kipmtnuaxdf6ki0qdorc.lambda-url.us-east-1.on.aws/'; // Replace with your actual Lambda URL
-    let presignedUrl;
-    try {
-        const lambdaResponse = await axios.post(lambdaUrl, {
-            id: response.data.videoId,  // Assuming the API returns a videoId for the new video
-            contentType: video.type
-        });
-        console.log(lambdaResponse)
-        presignedUrl = lambdaResponse.data.uploadUrl;
-        console.log(presignedUrl)
-    } catch (error) {
-        console.error('Error generating presigned URL:', error);
-        return; // Exit if presigned URL generation fails
-    }
-
-
-
-
     };
 
+
     return (
-        <main className="w-screen pl-12 md:pl-56 min-h-screen pt-12 pb-12 pr-8 md:pt-20 bg-[#F8F8F8]">
+        <main className="w-screen pl-12 md:pl-56 min-h-screen  pt-12 pb-12 pr-8 md:pt-20 bg-[#F8F8F8]">
             <h1 className="font-poppin-medium text-4xl">Create Video</h1>
             <form className="grid grid-cols-6 mt-4 gap-3" onSubmit={handleSubmit}>
                 <div className="col-span-4">
@@ -145,7 +162,7 @@ function CreateVideo() {
                     <label htmlFor="image-upload" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Upload a Picture</label>
                     <input
                         onChange={uploadImage}
-                        className="block w-full mb-5 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                        className="block w-full mb-5 text-xs  text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                         id="image-upload"
                         type="file"
                         accept="image/*"
@@ -153,10 +170,34 @@ function CreateVideo() {
                     />
                 </div>
                 <div className="col-span-3"></div>
-                <button type="button" onClick={handleSubmit} className="col-span-3 bg-blue text-white py-2 rounded-3xl">
+                <button type="button" disabled={isUploading} onClick={handleSubmit} className="col-span-3 bg-blue text-white py-2 rounded-3xl">
                     Submit
                 </button>
             </form>
+
+            {/* Uploading Content Modal */}
+           {isUploading != false &&  
+            <div className="h-screen w-screen bg-black/60 flex justify-center items-center z-50 top-0 left-0 fixed">
+                    <div className=" min-h-80 min-w-96 aspect-auto flex flex-col items-center justify-between p-4 pt-12 w-[700px] h-[450px] bg-light-blue rounded-3xl border-blue border-2 drop-shadow-md">
+                        <h3 className="text-3xl font-poppin-bold">Attempting Upload of Videos</h3>
+                        <div className="flex flex-col w-full gap-2">
+                            {["thumbnail","video"].map(current =>{
+                                return(
+                                    <div className="w-full h-14 opacity-50 flex flex-row items-center px-8 justify-between"
+                                    style={{backgroundColor: `rgba(0, ${18 + (uploadTracking[current] * 1.5)}, 0, ${ (uploadTracking[current] / 100) +40 })`}}
+                                >
+                                    <p className="text-white font-poppin-semibold">{current}</p>
+                                    <p>{uploadTracking[current]}%</p>
+                                </div>
+                                )
+                            })}
+                        </div>
+                        <button className="w-full h-20 bg-black text-white rounded-full">
+                            {isUploading == "Successful" ? " Video is uploaded!" : "Waiting for the Upload ..." }
+                        </button>
+                    </div>
+                </div>
+            }
         </main>
     );
 }

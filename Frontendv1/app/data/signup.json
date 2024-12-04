@@ -43,11 +43,13 @@
                 "placeholder": "Enter your password",
                 "field":"password",
                 "label":"Password",
+                "type":"password",
                 "span":6
             },
             {
                 "placeholder": "Enter your password again",
                 "field":"cpassword",
+                "type":"password",
                 "label":"Comfirm Password",
                 "span":6
             }

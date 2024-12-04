@@ -5,7 +5,8 @@ function Input({
   span,
   value = "Value not passed",
   handleChange,
-  color="blue"
+  color="blue",
+  type = "text"
 }) {
   let colSpan;
   switch (span) {
@@ -37,7 +38,7 @@ function Input({
         {label}
       </label>
       <input
-        type="text"
+        type={type}
         className={`rounded-2xl h-10 sm:h-12 bg-opacity-40 w-full bg-input-background active:border-0 outline-none
         px-6 py-2
         `}
