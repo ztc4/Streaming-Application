@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import jwt from "jsonwebtoken"
@@ -7,11 +8,8 @@ const s3Client = new S3Client({ region: process.env.REGION });
 export const handler = async (event) => {
     // JWT
     const token = event.headers.authorization?.split(' ')[1] ;
-    const BASE64_SECRET = process.env.JWTSECRET;
-    const secretKey = Buffer.from(BASE64_SECRET, 'base64');
-    let id; // video di
-    let contentType; // content type
-    let username;
+    const secretKey = Buffer.from(process.env.JWTSECRET, 'base64');
+    let id,username,contentType;
  
     if (!token) {
         return {
@@ -24,18 +22,23 @@ export const handler = async (event) => {
         const decoded = jwt.verify(token, secretKey, { algorithms: ['HS256'] })
         id = decoded.id;
         username = decoded.username;
-        contentType = decoded.contentType;
+        contentType = event.body.contentType || JSON.parse(event.body).contentType
 
     }catch(error){   
-        return {statusCode: 401,  body: JSON.stringify({ message: 'Bad request!' })}
+        return {
+            statusCode: 401,
+            body: JSON.stringify({ message: 'Bad request!' })
+        }
     }
 
+    const validTypes = ['image/jpeg', 'image/png', 'image/webp'];
     const bucketName = process.env.BUCKET_NAME;
     const expiresIn = 300;
-    const fileName = `Thumbnail/${id || event.id }`; // Change folder to 'Videos'
+    const extension = contentType.split('/')[1]; // Example would be png
+    const fileName = `Thumbnail/${id}.${extension}\``; // Change folder to 'Videos'
 
     
-    const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+
 
     if (!validTypes.includes(contentType)) {
         return {
@@ -51,8 +54,7 @@ export const handler = async (event) => {
     });
 
     try {
-        const url = await getSignedUrl(s3Client, command, { expiresIn }); // Use expiresIn from .env
-        // console.log(url)
+        const url = await getSignedUrl(s3Client, command, { expiresIn });
         return {
             statusCode: 200,
             body: JSON.stringify({ uploadUrl: url }),
