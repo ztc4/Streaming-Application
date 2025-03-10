@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*Light Mode Colors*/
+:root {
+  --background: #ffffff;
+  --background-secondary: #F8F8F8 ;
+  --background-dashboard: #F8F8F8;
+  --background-dashboard-nav: #FFFFFF;
+  --background-yellow: #F9ED32;
+  --background-blue: #113990;
+  --background-linear-black: linear-gradient(71deg, rgba(245,245,245,1) 1%, rgba(220,220,220,1) 98%);;
+  --background-linear-orange: linear-gradient(90deg, rgba(217,217,217,0) 0%, rgba(255,87,51,1) 100%);
+  --background-linear-yellow: linear-gradient(326deg, rgba(249,237,50,0.2027661406359419) 0%, rgba(249,237,50,1) 100%); ;
+  --background-linear-blue: linear-gradient(326deg, rgba(41,66,155,0.7994047960981268) 0%, rgba(41,66,155,0.30360647677039565) 80%, rgba(41,66,155,0) 100%);
+  --background-linear-blue-rotate: linear-gradient(120deg, rgba(41,66,155,0.7994047960981268) 0%, rgba(41,66,155,0.30360647677039565) 80%, rgba(41,66,155,0) 100%);
+
+  --text-accent-yellow: #F9ED32;
+  --text-accent-orange: #FF5733;
+  --text-accent-blue: #29429B;
+  --foreground: #171717;
+
+  /*The new Values*/
+  --main: #F8F8F8;
+  --secondary: #EDF2F4;
+  --text: #001219;
+  --text-secondary: #595858;
+  --text-secondary-2: #7C838A;
+  --footer: #040404;
+  /* Dashboard*/
+  --d-main: #F8F8F8;
+  --d-secondary: #EFECEC;
+  --d-sidebar: #FFFFFF;
+  --d-text: #001219;
+  /*Button*/
+  --b-main:#1c1c1c;
+  --b-secondary:#F5F5F5;
+  /*Shared*/
+  --orange: #FF5733;
+  --blue: #113990;
+  --yellow: #F9ED32;
+  --input: #B0BAC340;
+  --gradient-black: linear-gradient(71deg, rgba(245,245,245,1) 1%, rgba(220,220,220,1) 98%);;
+  --gradient-blue: linear-gradient(326deg, rgba(41,66,155,0.7994047960981268) 0%, rgba(41,66,155,0.30360647677039565) 80%, rgba(41,66,155,0) 100%);;
+  --gradient-orange: linear-gradient(90deg, rgba(217,217,217,0) 0%, rgba(255,87,51,1) 100%);;
+  --gradient-yellow: linear-gradient(326deg, rgba(249,237,50,0.2027661406359419) 0%, rgba(249,237,50,1) 100%);;
+  --gradient-blue-reverse: linear-gradient(120deg, rgba(41,66,155,0.7994047960981268) 0%, rgba(41,66,155,0.30360647677039565) 80%, rgba(41,66,155,0) 100%);;
+
+}
+
+ /*Dark Mode Colors*/
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-linear-black: linear-gradient(326deg, rgba(31,31,31) 0%, rgba(27,27,27,0.60) 60%);
+    --background: #0A0A0A;
+    --background-secondary: #1B1B1B; /*nav menu*/
+    --background-dashboard: #222222;
+    --background-dashboard-nav: #0A0A0A;
+    --foreground: #ededed;
+
+
+    /*The new Values*/
+    --main: #0A0A0A;
+    --secondary: #1B1B1B;
+    --text: #F5F5F5;
+    --text-secondary: #C0BCBC;
+    --text-secondary-2: #C0BCBC;
+    --footer: #040404;
+    /* Dashboard*/
+    --d-main: #161616;
+    --d-secondary: #1C1C1C;
+    --d-sidebar: #0C0C0C;
+    --d-text: #F5F5F5;
+    /*Button*/
+    --b-main:#F8F8F8;
+    --b-secondary:#001219;
+    --gradient-yellow: linear-gradient(326deg, rgba(249,237,50,0.2027661406359419) 0%, rgba(249,237,50,1) 100%);;
+    --gradient-black: linear-gradient(326deg, rgba(31,31,31) 0%, rgba(27,27,27,0.60) 60%); ;
+  }
+
+  .text-stroke{
+    -webkit-text-stroke: .5px white;
+  }
+}
+
+body {
+  color: var(--text);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/* Targeting Webkit browsers (Safari/Chrome) */
+::-webkit-scrollbar {
+  width: 5px; /* Make the scrollbar thinner */
+}
+
+/* Track (the background of the scrollbar) */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the track */
+}
+
+/* Handle (the draggable part of the scrollbar) */
+::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the handle */
+  border-radius: 10px; /* Make the handle rounder */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the handle on hover */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+
+
+
+
+/*.grid .VideoCard:nth-child(3n) {*/
+/*  background-color: #38b2ac; !* bg-teal-500 *!*/
+/*  color: white;*/
+/*  column-span: 8;*/
+/*}*/
