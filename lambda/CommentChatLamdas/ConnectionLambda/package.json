@@ -1,0 +1,22 @@
+{
+  "name": "connectionlambda",
+  "version": "1.0.0",
+  "description": "Connection Lambda for Chat/Comment System",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "keywords": [
+    "Comment",
+    "Chatbot",
+    "Lambda",
+    "Connected",
+    "to",
+    "DynamoDB"
+  ],
+  "author": "Zachary Coats",
+  "license": "ISC",
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2"
+  }
+}

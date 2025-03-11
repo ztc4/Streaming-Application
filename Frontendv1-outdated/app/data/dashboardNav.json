@@ -1,0 +1,74 @@
+{
+    "links1":[
+        {
+            "link": "prompts",
+            "text": "Trending",
+            "svg": "trending",
+            "visibility": "toggle"
+          },
+          {
+            "link": "prompts",
+            "text": "Educational",
+            "svg": "book",
+            "visibility": "toggle"
+          },
+          {
+            "link": "prompts",
+            "text": "Gaming",
+            "svg": "game",
+            "visibility": "toggle"
+          }
+    ],
+    "links2":[
+        {
+            "link": "prompts",
+            "text": "Your Account",
+            "svg": "Account",
+            "visibility": "toggle" 
+          },
+          {
+            "link": "prompts",
+            "text": "Past Activity",
+            "svg": "history",
+            "visibility": "toggle"
+          },
+          {
+            "link": "prompts",
+            "text": "Watch Later",
+            "svg": "Clock",
+            "visibility": "toggle"
+          },
+          {
+            "link": "prompts",
+            "text": "Liked Videos",
+            "svg": "Like",
+            "visibility": "toggle"
+          },
+          {
+            "link": "prompts",
+            "text": "Playlist",
+            "svg": "Playlist",
+            "visibility": "toggle"
+          },
+          {
+            "link": "prompts",
+            "text": "Add Video",
+            "svg": "Add",
+            "visibility": "toggle"
+          }
+    ],
+    "links3":[
+        {
+            "link": "prompts",
+            "text": "Settings",
+            "svg": "Setting",
+            "visibility": "toggle"
+          },
+          {
+            "link": "prompts",
+            "text": "Send Feedback",
+            "svg": "Feedback",
+            "visibility": "toggle"
+          }
+    ]
+}

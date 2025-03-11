@@ -1,0 +1,35 @@
+import React from "react";
+import SubscribeButton from "@/app/components/SubscribeButton";
+
+interface LayoutProps {
+    children: React.ReactNode;
+    searchParams: { vid?: string };
+    videoData?: { title: string; author: string; description: string; timeAgo: string };
+}
+
+
+export default function Layout({children, searchParams, videoData} : LayoutProps) {
+    const videoId = searchParams?.vid;
+    console.log(`In the server, this is the search param vid: ${videoId}`);
+
+        return (
+            <div className={"flex flex-col w-full h-full pt-12 px-8 pb-12  xl:px-12 cursor-default "}>
+                <header className={"flex flex-row justify-between max-w-[1000px] "}>
+                    <div className="flex flex-col">
+                        <h1 className={"text-4xl text-d-text font-bold"}>Lorem ipsum dolor sit</h1>
+                        <div className="flex flex-row justify-between gap-2">
+                            <h2 className="text-text-secondary">Zachary Coats</h2>
+                            <p className="text-text-secondary-2">4d Ago</p>
+                        </div>
+
+                    </div>
+                    <p> ID is {videoId}</p>
+                    <div className="max-w-[145px]">
+                        <SubscribeButton username={"ztc4"} subscribed={true} userId={1}/>
+                    </div>
+                </header>
+                {children}
+
+            </div>
+        )
+}

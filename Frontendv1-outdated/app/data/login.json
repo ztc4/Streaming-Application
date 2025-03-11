@@ -1,0 +1,20 @@
+{
+    "title":"Log into your profile",
+    "input":[
+        {
+           "placeholder": "Enter your email",
+           "field":"email",
+           "label":"Email",
+           "span":6
+           
+        },
+        {
+            "placeholder": "Enter your password",
+            "type":"password",
+            "field":"password",
+            "label":"Password",
+            "span":6
+        }
+    ],
+    "button":"Login"
+}

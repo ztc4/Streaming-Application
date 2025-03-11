@@ -31,5 +31,5 @@ application.properties
 .properties
 **/**/.properties
 
-./backend-kotlin/backend-kotlin/src/main/resources/application.properties
+backend-kotlin-outdated/backend-kotlin/src/main/resources/application.properties
 Dockerfile

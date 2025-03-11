@@ -1,0 +1,60 @@
+ {
+    "page1":{
+        "title":"Signup",
+        "input":[
+            {
+               "placeholder": "Enter First",
+               "field":"firstName",
+               "label":"Full Name",
+               "span":3
+            },
+            {
+                "placeholder": "Enter Last",
+                "field":"lastName",
+                "label":" _ ",
+                "span":3
+             },
+            {
+                "placeholder": "Enter your email",
+                "field":"email",
+                "label":"Email",
+                "span":6
+            }
+            
+        ],
+        "button":"Continue"
+    },
+    "page2":{
+        "title":"Go Beyond",
+        "input":[
+            {
+                "placeholder": "Enter Username",
+                "field":"username",
+                "label":"Username",
+                "span":3
+            },
+            {
+                "placeholder": "Enter Number",
+                "field":"phoneNumber",
+                "label":"Mobile Number",
+                "span":3
+            },
+            {
+                "placeholder": "Enter your password",
+                "field":"password",
+                "label":"Password",
+                "type":"password",
+                "span":6
+            },
+            {
+                "placeholder": "Enter your password again",
+                "field":"cpassword",
+                "type":"password",
+                "label":"Comfirm Password",
+                "span":6
+            }
+            
+        ],
+        "button":"Review"
+    }
+}
