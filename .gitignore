@@ -25,11 +25,5 @@ yarn-error.log*
 
 .env
 
-application.properties
-**/application.properties
-**/.properties
-.properties
-**/**/.properties
 
-backend-kotlin-outdated/backend-kotlin/src/main/resources/application.properties
 Dockerfile

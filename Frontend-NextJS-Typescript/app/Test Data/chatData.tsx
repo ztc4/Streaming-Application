@@ -27,7 +27,7 @@
         }
     },
     {
-        "message": "A full-stack video streaming platform!",
+        "message": "A full-stack video Backend(MySQL & Kotlin) platform!",
         "timestamp": "2025-03-06T12:33:20Z",
         "user": {
             "id": 2,
