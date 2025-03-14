@@ -1,9 +1,9 @@
 import {NextRequest, NextResponse} from "next/server";
 import {cookies} from "next/headers";
 import {authUser} from "@/app/api/functions/authMiddleware";
-import {PrismaClient} from "@prisma/client";
+import { db } from '@/app/api/db/config';
 import {convertBigIntToNumber} from "@/app/api/functions/convertBigIntToNumber";
-const db = new PrismaClient();
+
 //Get My Playlist
 export async function GET(req: NextRequest){
     const url = new URL(req.url);

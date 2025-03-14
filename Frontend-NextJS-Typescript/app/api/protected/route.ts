@@ -1,6 +1,7 @@
 import {cookies} from "next/headers";
 import {authUser} from "@/app/api/functions/authMiddleware";
 import {NextRequest, NextResponse} from "next/server";
+import { db } from '@/app/api/db/config';
 
 export async function GET(req: NextRequest){
     const authToken = (await cookies()).get("token")?.value

@@ -1,8 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
 import {cookies} from "next/headers";
 import {authUser} from "@/app/api/functions/authMiddleware";
-import {PrismaClient} from "@prisma/client";
-const db = new PrismaClient();
+import { db } from '@/app/api/db/config';
 
 // PlaylistController
 // Create Playlist

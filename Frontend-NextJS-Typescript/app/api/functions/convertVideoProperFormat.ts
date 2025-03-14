@@ -1,11 +1,11 @@
 import {IUser} from "@/app/interfaces/IUser";
+import {IVideoProps} from "@/app/interfaces/IVideoProps";
 
 
 interface Video {
     createdAt?: string;
-    title: string;
-
-    views: number;
+    title?: string;
+    views?: number;
     user?: IUser;
     videoId: number,
     category?: "EDUCATIONAL" | "GAMING"| "NONE"| "PROGRAMMING";
@@ -14,22 +14,22 @@ interface Video {
     likes?: number;
 }
 
-export function convertVideoProperFormat(video: any, user: any): Video {
+export function convertVideoProperFormat(video: any, user: any): IVideoProps | IVideoExpanded {
 
     return {
-        title : String(video.title),
-        views : Number(video.views),
-        createdAt: String(video.created_at),
         videoId: Number(video.video_id),
-        likes: Number(video.likes) ,
-        dislikes: Number(video.dislikes) ,
-        category: String(video.category),
-        description : String(video.description) ,
+        title : video.title || undefined,
+        views : Number(video.views) || undefined,
+        createdAt: video.created_at|| undefined,
+        likes: Number(video.likes) || undefined,
+        dislikes: Number(video.dislikes) || undefined,
+        category: video.category || undefined,
+        description : video.description || undefined,
         user: user
             ? {  // Only include user if it exists
                 username: String(user.username),
                 id: Number(user.id),
-                subscribersCount: Number(user.subscribersCount),
+                subscribersCount: Number(user.subscribers_count),
             }
             : undefined ,
     }

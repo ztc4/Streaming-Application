@@ -1,20 +1,25 @@
 import {NextRequest, NextResponse} from "next/server";
-import {PrismaClient} from "@prisma/client";
 import {convertVideoProperFormat} from "@/app/api/functions/convertVideoProperFormat";
-
-const db = new PrismaClient();
+import { db } from '@/app/api/db/config';
+import {authUser} from "@/app/api/functions/authMiddleware";
+import {cookies} from "next/headers";
+import {makeIsLikedVideo} from "@/app/api/functions/isLiked";
+import {IVideoProps} from "@/app/interfaces/IVideoProps";
 
 
 export async function GET(req: NextRequest){
     // variables
-    const url = new URL(req.url);
-    const title = url.searchParams.get("title") || undefined;
-    const category = url.searchParams.get("category") as "EDUCATIONAL" | "GAMING"| "NONE"| "PROGRAMMING" | undefined;
-    const username = url.searchParams.get("username") || undefined;
-    const sortBy = url.searchParams.get("sortBy") || undefined;
-    const order = url.searchParams.get("order") as "ascending" | "descending" | undefined;
-    const page = parseInt(url.searchParams.get("page") || "0", 10);
-    const myVideos = url.searchParams.get("myVideos") === "true";
+    const searchParams = req.nextUrl.searchParams;
+    const title = searchParams.get("title") || undefined;
+    const category = searchParams.get("category") as "EDUCATIONAL" | "GAMING"| "NONE"| "PROGRAMMING" | undefined;
+    const username = searchParams.get("username") || undefined;
+    const sortBy = searchParams.get("sortBy") || undefined;
+    const order = searchParams.get("order") as "ascending" | "descending" | undefined;
+    const page = searchParams.get("page")  as number || 0
+    const myVideos = searchParams.get("myVideos") === "true";
+
+    const authToken = (await cookies()).get("token")?.value
+    const tokenClaims = authUser(authToken);
 
     // Authentication
     const authenticatedUsername = "JohnDoe";
@@ -49,8 +54,11 @@ export async function GET(req: NextRequest){
         },
     });
 
-    const formattedVideos = videos.map((video) => convertVideoProperFormat(video, video.users))
+    const formattedVideos: IVideoProps[] = videos.map((video) => convertVideoProperFormat(video, video.users))
+    const videoWithExtraInfo = await Promise.all(formattedVideos.map(async (video) => {
+        return makeIsLikedVideo(tokenClaims?.userId || null, video);
+    }));
 
 
-    return NextResponse.json(formattedVideos, { status: 200 });
+    return NextResponse.json(videoWithExtraInfo, { status: 200 });
 }

@@ -1,6 +1,7 @@
 import {NextRequest, NextResponse} from "next/server";
 import {cookies} from "next/headers";
 import {authUser} from "@/app/api/functions/authMiddleware";
+import { db } from '@/app/api/db/config';
 
 
 // Delete Your Account

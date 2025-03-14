@@ -1,8 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
-import { PrismaClient } from "@prisma/client";
 import { cookies } from "next/headers";
-
-const db = new PrismaClient();
+import { db } from '@/app/api/db/config';
 
 export async function GET(req: NextRequest){
 

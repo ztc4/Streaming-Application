@@ -1,8 +1,6 @@
 import {NextRequest, NextResponse} from "next/server";
-import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
-
-const db = new PrismaClient();
+import { db } from '@/app/api/db/config';
 
 const customJSON = (data: any) =>
     JSON.stringify(data, (_, value) =>
@@ -36,7 +34,7 @@ export async function POST(req: NextRequest) {
                 email:   userPrivate.email
             },
             process.env.JWT_SECRET,
-            { expiresIn: "1h" } // Token expires in 1 hour
+            { expiresIn: "24h" } // Token expires in 1 hour
         );
         const cookieOptions = {
             httpOnly: true, // Ensures the cookie is not accessible via JavaScript
