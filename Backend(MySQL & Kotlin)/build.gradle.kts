@@ -19,6 +19,8 @@ repositories {
 }
 
 dependencies {
+
+	implementation("io.github.cdimascio:dotenv-kotlin:6.4.1")
 	// Web & Core dependencies
 	implementation("org.springframework.boot:spring-boot-starter-web:3.3.4") // Updated to match Spring Boot version
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.1")
