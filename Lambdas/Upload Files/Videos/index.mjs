@@ -50,7 +50,7 @@ export const handler = async (event) => {
     };
   }
 
-  // Build the S3 key using the video id and file extension
+  // Build the S3 key using the video [id] and file extension
   const bucketName = process.env.BUCKET_NAME;
   const expiresIn = 300;
   const extension = contentType.split('/')[1];

@@ -17,15 +17,16 @@ interface IFormData {
 export default function Login() {
     const [formData, setFormData] = useState<IFormData>({ email: "", password: "" });
 
+    const router = useRouter()
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
     const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const router = useRouter();
+        console.log("Submitted!")
+        // ;
         try {
-            const response = await axios.post(process.env.NEXT_PUBLIC_API_FETCH_URL + "/user/login", formData);
-            Cookies.set("token", response.data)
+            const response = await axios.post(process.env.NEXT_PUBLIC_API_FETCH_URL + "/auth/login", formData);
             router.push('/dashboard');
 
         }
@@ -54,6 +55,7 @@ export default function Login() {
                     name="password" type={"Password"} error={null}
                     value={formData.password}/>
                 <button
+
                     className="col-span-6 mx-auto hover:bg-blue-900 rounded-md py-2 w-1/3 px-6 drop-shadow-md text-text bg-blue ">
                     Login
                 </button>
