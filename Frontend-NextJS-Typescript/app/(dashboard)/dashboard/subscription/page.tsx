@@ -7,7 +7,7 @@ import {useInView} from "react-intersection-observer";
 import Subscription from "@/app/components/Subscription";
 
 export default function SubscriptionPage(){
-    const {subscriptions, isMore, loading, getSubscriptions} = useSubscription("/subscriptions?")
+    const {subscriptions, isMore, loading, getSubscriptions} = useSubscription("/search/subscriptions?")
 
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
     const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: true });
@@ -21,18 +21,16 @@ export default function SubscriptionPage(){
             getSubscriptions();
         }
     }, [inView, isMore, getSubscriptions, loading]);
-    console.table(subscriptions)
-
     return (
         <div className={"flex flex-row flex-wrap   w-full h-full pt-12  gap-6  px-8 cursor-default "}>
 
-                {subscriptions.map((_, index) => (
+                {subscriptions.map((user, index) => (
                     <Subscription
                         key={index}
                         index={index}
                         expandable={true}
                         isAvatar={true}
-                        user={_.userSubscribedTo}
+                        user={user}
                         expandedIndex={expandedIndex}
                         handleExpandable={handleExpand}
                          />)

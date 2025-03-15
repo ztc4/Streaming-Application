@@ -1,10 +1,11 @@
-import {NextRequest, NextResponse} from "next/server";
+import { NextResponse} from "next/server";
 import {cookies} from "next/headers";
 import {authUser} from "@/app/api/functions/authMiddleware";
 import { db } from '@/app/api/db/config';
+import { convertUserProperFormat } from "@/app/api/functions/convertUserProperFormat"
 
 // searchController/ Subscriptions
-export async function GET(req: NextRequest){
+export async function GET(){
 
     try {
         const authToken = (await cookies()).get("token")?.value
@@ -15,12 +16,20 @@ export async function GET(req: NextRequest){
         const subscriptions = await db.subscription.findMany({
             where: {
                 subscriber_id: tokenClaims.userId
+            },
+            select: {
+                user_subscribed_to_id: true
             }
         })
+        const userIds: number[] = subscriptions.map( it => Number(it.user_subscribed_to_id))
+        const users = await  db.users.findMany({
+            where: {
+                id:{in: userIds}
+            }
+        })
+        const formattedUsers = users.map(user =>  convertUserProperFormat(user))
 
-        
-        console.log(subscriptions)
-        return new NextResponse("Found Your Subscriptions",{status:200 })
+        return NextResponse.json(formattedUsers,{status:200 })
 
     }catch (e) {
         console.log(e)

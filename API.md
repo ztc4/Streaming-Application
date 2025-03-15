@@ -8,11 +8,13 @@
 ##### Return Video ++
 #### http://localhost:8080/api/v1/search/video/3 -> /api/search/video/3 (GET) ** Get Video by ID**
 #### http://localhost:8080/api/v1/search/video/expanded/3 -> /api/search/video/3?expanded=true (GET) ** Get Video by ID Expanded**
+ -> 
 ##### Return Playlist
 #### http://localhost:8080/api/v1/playlist/9?expanded=true -> /api/search/playlist/9?expanded=true ** Get Certain playlist **  ( expanded or unexpanded, SEMI_PROTECTED)
 #### http://localhost:8080/api/v1/playlist/me?category=NONE -> /api/protected/playlist/me?category=ACTIVITY (GET) ** GET PLAYLIST ** (PROTECTED)
 ##### Return Users
-
+#### http://localhost:8080/api/v1/search/subscriptions?page=0 -> /api/search/subscriptions ** Subscriptions ** ( PROTECTED )
+#### 
 
 ### Auth ++ 
 #### http://localhost:8080/api/v1/user/login -> /api/auth/login (POST) ** LOGIN **
@@ -40,7 +42,6 @@
 
 
 ### I need to do the following
-#### http://localhost:8080/api/v1/search/subscriptions?page=0 (GET)  ** Subscriptions ** ( PROTECTED )
 #### http://localhost:8080/api/v1/search/user?me=true (GET) ** GET USER! ** ( SEMI-PROTECTED )
 
 

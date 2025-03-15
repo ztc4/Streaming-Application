@@ -26,8 +26,8 @@ export function usePlaylist(fetchURL: string) {
                     },
                 }
             );
-            setPlaylists((current) => [...current, ...response.data.content]);
-            response.data.last ? setIsMore(false) : (page.current += 1);
+            setPlaylists((current) => [...current, ...(response.data.content || response.data)]);
+            response.data.length < 10 ? setIsMore(false) : (page.current += 1);
         }
         catch (error) {
             setIsMore(false)

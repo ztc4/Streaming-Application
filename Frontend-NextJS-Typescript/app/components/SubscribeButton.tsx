@@ -13,7 +13,7 @@ export default function SubscribeButton({username, subscribed, userId}: ISubscri
 
     return(
         <button
-        className={clsx("font-semibold w-full flex justify-center items-center  self-end ml-auto duration-500  z-[80] 0 h-[25px] px-3 py-4 rounded-3xl", isSubscribed ? " bg-b-main text-b-secondary text-[#EFF]" :"bg-red-500 " )}
+        className={clsx("font-semibold w-full flex justify-center items-center text-sm  self-end ml-auto duration-500  z-[80] 0 h-[25px] px-3 py-4 rounded-3xl", isSubscribed ? " bg-b-main text-b-secondary text-[#EFF]" :"bg-red-500 " )}
         onClick={handleSubscribe} // Prevent link activation
         aria-label={`Subscribe to the ${username} channel`}
         >

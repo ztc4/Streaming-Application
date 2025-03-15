@@ -9,6 +9,7 @@ export async function GET(req: NextRequest){
     const url = new URL(req.url);
     const category = url.searchParams.get("category") as "EDUCATIONAL" | "GAMING"| "NONE"| "PROGRAMMING" | undefined;
 
+    console.log(2, req)
     //verify auth
     const authToken = (await cookies()).get("token")?.value
     const tokenClaims = authUser(authToken);

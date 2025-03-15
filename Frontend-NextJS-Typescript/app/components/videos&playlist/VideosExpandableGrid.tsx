@@ -14,6 +14,7 @@ export default function VideosExpandableGrid({fetchURL, active, expandable, oneT
     if(fetchURL == undefined) return <h1 className="text-5xl text-text">A Fetch URL is Needed!</h1>
 
 
+    console.log(3, fetchURL)
     const { videoList, isMore, loading, getVideos } = useVideos(fetchURL);
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
     const { ref, inView } = useInView({ threshold: 0.5, triggerOnce: oneTime });

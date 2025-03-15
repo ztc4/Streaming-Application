@@ -1,15 +1,17 @@
+import {IUser} from "@/app/interfaces/IUser";
+
 interface UserUnformatted{
-    username: string;
-    id: bigint;
-    subscribers_count: bigint;
+    username?: string | null;
+    id?: bigint;
+    subscribers_count?: bigint;
 }
 
-interface User {}
 
-export function convertUserProperFormat({username, id, subscribers_count}: UserUnformatted): User {
+
+export function convertUserProperFormat({username, id, subscribers_count}: UserUnformatted): IUser{
     return {
         username : String(username),
         id: Number(id),
-        subscriberCount : Number(subscribers_count)
+        subscribersCount : Number(subscribers_count)
     }
 }

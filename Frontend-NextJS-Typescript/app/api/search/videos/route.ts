@@ -20,14 +20,9 @@ export async function GET(req: NextRequest){
 
     const authToken = (await cookies()).get("token")?.value
     const tokenClaims = authUser(authToken);
-
-    // Authentication
-    const authenticatedUsername = "JohnDoe";
-    const effectiveUsername = myVideos ? authenticatedUsername : username;
-    if (myVideos && !authenticatedUsername) {
-        return NextResponse.json({ error: "User must be authenticated to view their videos." }, { status: 401 });
+    if(myVideos && !tokenClaims?.userId){
+        return new NextResponse("Can't get your videos! Currently not signed in", {status: 401})
     }
-
 
 
     // Fetch videos
@@ -37,7 +32,8 @@ export async function GET(req: NextRequest){
     const where: any = {};
     if (title) where.title = { contains: title, mode: "insensitive" };
     if (category) where.category = category;
-    if (effectiveUsername) where.users = { username: effectiveUsername };
+    if (myVideos ) where.users = { id: tokenClaims?.userId };
+    if (username && !myVideos) where.users = { username: username};
 
     const videos = await db.videos.findMany({
         where,

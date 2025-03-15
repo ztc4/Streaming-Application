@@ -10,6 +10,7 @@ import Link from "next/link";
 import {AddVideoToPlaylist} from "@/app/components/fetch/playlistAddVideo";
 import axios from "axios";
 import Cookies from "js-cookie";
+import VideoCardExpanded from "@/app/components/VideoCardExpanded";
 
 interface IProps {
     isGrid: boolean;
@@ -91,7 +92,7 @@ export default function VideoCard({index,expandable = false, isGrid = false,  ex
                         <span>@</span>
                         {content.video.user.username}
                     </h4>
-                    <div className=" ml-auto w-1/3">
+                    <div className=" ml-auto  min-w-fit w-1/3">
                         <SubscribeButton
                             username={content.video.user.username}
                             subscribed={content.isSubscribed}
@@ -124,91 +125,10 @@ export default function VideoCard({index,expandable = false, isGrid = false,  ex
                     <p className="text-sm text-text-secondary">{content.video.views} views - {formattedDate}</p>
                 </div>
             </section>
-            {(isVisible && expandable) &&
-                <VideoCardExpanded expandable={expandable} isInLastColumn={isInLastColumn} isVisible={isVisible} videoId={content.video.videoId} />
-            }
+            <VideoCardExpanded expandable={expandable} isInLastColumn={isInLastColumn} isVisible={isVisible} videoId={content.video.videoId} />
+
         </article>
 
     )
 }
-interface VideoCardExpanded {
-    expandable: boolean;
-    isInLastColumn: boolean;
-    isVisible: boolean;
-    videoId: number
-}
 
-function VideoCardExpanded({expandable, isInLastColumn ,isVisible, videoId}:VideoCardExpanded) {
-    const { handleAddVideo } = AddVideoToPlaylist({
-        category: "LATER",
-        videoId: videoId,
-        playlistId: null
-    });
-    const [videoExpanded, setVideoExpanded] = useState<IVideoExpanded | null>(null);
-    const getVideoExpanded = async () => {
-        const token = Cookies.get("token");
-        const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_FETCH_URL}/search/video/expanded/${videoId}`,
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json",
-                },
-    }
-        ). then((response) => response.json());
-        console.log(response)
-        setVideoExpanded(response);
-        localStorage.setItem(`videoExpanded-${videoId}`, JSON.stringify(response));
-
-    }
-    useEffect(() => {
-
-        const cachedVideo = localStorage.getItem(`videoExpanded-${videoId}`);
-        if (cachedVideo) {
-            setVideoExpanded(JSON.parse(cachedVideo));  // Use cached data if available
-        } else {
-            getVideoExpanded();  // Fetch if not available in cache
-        }
-
-        return () => {
-            setVideoExpanded(null)
-        }
-
-    }, []);
-
-
-
-    return (
-
-        <section className={clsx(
-            !expandable && "min-w-fit w-[320px]",
-            (expandable && !isVisible) && " w-full",
-            (expandable && isVisible && isInLastColumn) && "w-full h-1/2  row-span-1",
-            (expandable && isVisible && !isInLastColumn) && "w-1/2",
-            "flex flex-col gap-1 p-2"
-        )}>
-            <p className="text-d-text font-semibold text-lg">Category : {videoExpanded?.category || "Music"}</p>
-            <p className="text-d-text font-medium text-base">{ videoExpanded?.description ||`Lorem ipsum dolor sit amet consectetur. Sed scelerisque
-                praesent sed tristique volutpat neque vulputate arcu est. Posuere amet vulputate odio orci faucibus
-                justo gravida velit massa. Netus quam volutpat tellus gravida ac massa leo. Massa aliquet blandit.`}</p>
-            <div className="w-full mt-auto gap-2  flex flex-col ">
-                <button
-                    onClick={handleAddVideo}
-                    className="w-full p-2 border-2 border-d-main  hover:bg-b-main hover:text-b-secondary rounded-2xl "> Add
-                    to Watch Later
-                </button>
-                <div className="flex flex-row gap-2 w-full">
-                    <button
-                        className="w-1/2 p-2 border-2 border-d-main hover:bg-b-main hover:text-b-secondary rounded-2xl "> Report
-                    </button>
-                    <button
-                        className="w-1/2  p-2 border-2 border-d-main  hover:bg-b-main hover:text-b-secondary rounded-2xl"> Share
-                    </button>
-                </div>
-
-            </div>
-
-        </section>
-    )
-
-}

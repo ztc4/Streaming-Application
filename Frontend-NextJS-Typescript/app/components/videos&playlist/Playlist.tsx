@@ -1,7 +1,7 @@
 "use client"
 
 import PlaylistCard from "@/app/components/PlaylistCard";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {useInView} from "react-intersection-observer";
 import {LoaderCircle} from "lucide-react";
 import {usePlaylist} from "@/app/components/fetch/usePlaylist";
@@ -27,10 +27,11 @@ export default function Playlist({fetchURL, active}: IPlaylistProps) {
 
 
 
+    console.log(playlists)
     return(
         <div className={active ? " w-full" : "hidden w-full"}>
 
-            <div className="grid grid-cols-12 mt-2 z-0 duration-1000  gap-2 min-h-screen">
+            <div className="grid grid-cols-12 mt-2 z-0 duration-1000  gap-2">
                 {playlists.map((current, index) => (
                     <PlaylistCard
                         content={current}

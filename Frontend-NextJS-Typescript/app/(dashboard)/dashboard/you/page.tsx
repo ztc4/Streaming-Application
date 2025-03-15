@@ -38,7 +38,7 @@ export default function PlaylistPage(){
                 </fieldset>
             </div>
 
-            <Playlist fetchURL={"/playlist/me?"} active={visibleContent === "playlist" }/>
+            <Playlist fetchURL={"/protected/playlist/me?"} active={visibleContent === "playlist" }/>
             <VideosExpandableGrid
                 fetchURL={"/search/videos?myVideos=true"}
                 expandable={true}

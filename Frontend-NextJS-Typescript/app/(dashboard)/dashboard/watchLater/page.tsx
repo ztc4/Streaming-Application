@@ -21,18 +21,11 @@ export default  async function PastActivityAndWatchLaterPage() {
 
     const getPlaylistId = async (category: "LATER" | "ACTIVITY") => {
         try {
-            const response = await axios.get(
-                `${process.env.NEXT_PUBLIC_API_FETCH_URL}/playlist/me?category=${category}`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token?.value}`,
-                        "Content-Type": "application/json",
-                    },
-                }
+            const response = await axios.get(`http://localhost:3000/api/protected/playlist/me?category=${category}`,
+                { headers: {Cookie: `token=${token?.value}`, "Content-Type": "application/json",},}
             );
-            console.log(response)
 
-            playlistId[category] = response.data.content?.[0]?.id || undefined
+            playlistId[category] =  response.data.content?.[0]?.id || response.data[0].id   || undefined
         } catch (error) {
             console.error(`Failed to fetch playlist ID for ${category}:`, error);
         }
@@ -41,7 +34,7 @@ export default  async function PastActivityAndWatchLaterPage() {
     await getPlaylistId("ACTIVITY")
     await getPlaylistId("LATER")
 
-    console.log("Here goes your playlistID : ", playlistId)
+
 
 
     if(playlistId.LATER == undefined && playlistId.ACTIVITY == undefined) return <div> Loading ... </div>
@@ -49,7 +42,7 @@ export default  async function PastActivityAndWatchLaterPage() {
 
 
     return (
-        <div className={"flex flex-col justify-end w-full h-full pt-12  gap-6  px-8 cursor-default "}>
+        <div className={"flex flex-col justify-start w-full h-full pt-6  gap-6  px-8 cursor-default "}>
             <header className={"flex flex-col  gap-4 items-center justify-center w-full my-2  "}>
                 <h2 className={"text-4xl   font-medium"}>Past Activity</h2>
                 <div
@@ -59,7 +52,7 @@ export default  async function PastActivityAndWatchLaterPage() {
                         active={false}
                         expandable={false}
                         oneTime={true}
-                        fetchURL={`/search/playlist/${playlistId.ACTIVITY}?`}
+                        fetchURL={`/search/videos/playlist?pId=${playlistId.ACTIVITY}`}
                     />)}
                 </div>
 
@@ -69,7 +62,7 @@ export default  async function PastActivityAndWatchLaterPage() {
                 {playlistId.LATER !== undefined && (
                     <VideosExpandableGrid
                         oneTime={false}
-                        fetchURL={`/search/playlist/${playlistId.LATER}?`}
+                        fetchURL={`/search/videos/playlist?pId=${playlistId.LATER}`}
                         expandable={true}
                         active={true}
                     />

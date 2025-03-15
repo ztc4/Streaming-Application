@@ -14,34 +14,21 @@ export function Subscribed ({username, subscribed, userId}: ISubscribeButtonProp
 
     const [isSubscribed, setIsSubscribed] = useState(subscribed);
     const handleSubscribe = async () => {
+        console.log(userId)
         try{
             const token = Cookies.get('token')
             let response :AxiosResponse<any,any>
             if(isSubscribed){
-                response = await axios.delete(`${process.env.NEXT_PUBLIC_API_FETCH_URL}/action/subscription/unsubscribe/${userId}`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
+                response = await axios.delete(`${process.env.NEXT_PUBLIC_API_FETCH_URL}/protected/action/subscription?id=${userId}`,);
             }
             else{
-                response =  await axios.post(`${process.env.NEXT_PUBLIC_API_FETCH_URL}/action/subscription/subscribe/${userId}`, {},
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            'Content-Type': 'application/json'
-                        },
-                    }
-                )
+                response = await axios.post(`${process.env.NEXT_PUBLIC_API_FETCH_URL}/protected/action/subscription?id=${userId}`, {},)
 
             }
             setIsSubscribed(prev => !prev);
         }
         catch(err){
-            alert(err)
+            console.log(err)
         }
     }
 

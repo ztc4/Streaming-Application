@@ -30,7 +30,7 @@ export async function GET(req: NextRequest){
             }
         })
 
-        if(!latestVideo)return new NextResponse("No latest user found by the user!", {status: 201})
+        if(!latestVideo)return new NextResponse("No latest video found by the user!", {status: 404})
 
         const formattedLatestVideo = convertVideoProperFormat(latestVideo, latestVideo.users)
         const video = await makeIsLikedVideo(tokenClaims?.userId || null, formattedLatestVideo);
